@@ -9,7 +9,6 @@ import javax.ws.rs.ApplicationPath;
 import org.glassfish.jersey.server.ResourceConfig;
 import org.springframework.context.annotation.Configuration;
 
-import com.cairone.im.ui.ctrl.ConvertCtrl;
 import com.cairone.im.ui.ctrl.ConvertService;
 
 import io.swagger.v3.jaxrs2.integration.resources.OpenApiResource;
@@ -23,7 +22,7 @@ import io.swagger.v3.oas.models.servers.Server;
 public class JerseyCfg extends ResourceConfig {
 
 	public JerseyCfg() {
-		register(ConvertCtrl.class);
+		register(ConvertService.class);
 	}
 	
     @PostConstruct

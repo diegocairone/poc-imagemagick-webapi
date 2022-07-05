@@ -1,5 +1,6 @@
 package com.cairone.im.ui.ctrl;
 
+import java.io.File;
 import java.io.InputStream;
 
 import javax.ws.rs.GET;
@@ -17,8 +18,5 @@ public interface ConvertService {
 	
 	@POST
 	@Path("/to-png")
-	public InputStream convert(
-			@PathParam("input") String input, 
-			@PathParam("output") String output,
-			InputStream is);
+	public InputStream convertToPng(@PathParam("file") File file);
 }
