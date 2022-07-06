@@ -8,6 +8,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.cairone.im.AppException;
@@ -18,17 +19,21 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class ImageMagickService {
 
-	private static final String MOGRIFY_PATH = "/usr/local/bin/mogrify";
+	@Value("${command-shell}")
+	private String commandShell;
+	
+	@Value("${im-mogrify-command-path}")
+	private String mogrifyCmdPath;
 	
 	public ByteArrayOutputStream mogrify(File file, String outFormat) {
 		
 		// command: mogrify -format [output format] path/to/file
 		
 		String bashCmd = String.format(
-				"%s -format %s %s", MOGRIFY_PATH, outFormat, file.getAbsolutePath());
+				"%s -format %s %s", mogrifyCmdPath, outFormat, file.getAbsolutePath());
 		log.info("Command to be executed: {}", bashCmd);
 		
-		ProcessBuilder processBuilder = new ProcessBuilder("bash", "-c", bashCmd);
+		ProcessBuilder processBuilder = new ProcessBuilder(commandShell, "-c", bashCmd);
 		
 		try {
 
